@@ -13,5 +13,11 @@ public class HelloWorldController {
         return "Hello World";
     }
 
+    // alt + enter
+    @GetMapping("hello-world-bean")
+    public HelloWorldBean helloWorldBean() {
+        return new HelloWorldBean("Hello World");
+    }
+
 
 }
