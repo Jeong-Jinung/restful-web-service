@@ -1,5 +1,10 @@
 package com.example.restfulwebservice.user;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import javax.validation.Valid;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = service.save(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -44,6 +49,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable int id) {
         User user = service.deleteById(id);
 
