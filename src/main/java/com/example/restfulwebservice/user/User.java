@@ -1,15 +1,17 @@
 package com.example.restfulwebservice.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
-import org.hibernate.annotations.BatchSize;
 
 @Data
 @AllArgsConstructor
+@JsonIgnoreProperties(value = {"password"}) // 여러개 지정 가능
 public class User {
 
     private Integer id;
@@ -19,4 +21,10 @@ public class User {
 
     @Past
     private Date joinDate;
+
+//    @JsonIgnore // 각 필드별 지정 가능
+    private String password;
+
+//    @JsonIgnore
+    private String ssn;
 }
