@@ -9,9 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @JsonFilter("UserInfo")
 public class User {
 
