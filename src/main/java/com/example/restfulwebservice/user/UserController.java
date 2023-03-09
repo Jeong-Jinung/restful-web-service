@@ -26,20 +26,20 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> retrieveAllUsers() {
+    public List<Member> retrieveAllUsers() {
         return service.findAll();
     }
 
     // GET /users/1 or users/10
     @GetMapping("/users/{id}")
-    public EntityModel<User> retrieveUser(@PathVariable int id) {
-        User user = service.findOne(id);
+    public EntityModel<Member> retrieveUser(@PathVariable int id) {
+        Member member = service.findOne(id);
 
-        if (user == null) {
+        if (member == null) {
             throw new UserNotFoundException(String.format("ID[%s]) not found", id));
         }
 
-        EntityModel<User> model = EntityModel.of(user);
+        EntityModel<Member> model = EntityModel.of(member);
         WebMvcLinkBuilder linkBuilder = WebMvcLinkBuilder.linkTo(
             WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllUsers()
         );
@@ -50,11 +50,11 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        User savedUser = service.save(user);
+    public ResponseEntity<Member> createUser(@Valid @RequestBody Member member) {
+        Member savedMember = service.save(member);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(savedUser.getId())
+                .buildAndExpand(savedMember.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
@@ -62,9 +62,9 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable int id) {
-        User user = service.deleteById(id);
+        Member member = service.deleteById(id);
 
-        if (user == null) {
+        if (member == null) {
             throw new UserNotFoundException(String.format("ID[%s]) not found", id));
         }
     }

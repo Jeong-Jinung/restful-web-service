@@ -10,46 +10,46 @@ import java.util.List;
 @Service
 public class UserDaoService {
 
-    private static List<User> users = new ArrayList<>();
+    private static List<Member> members = new ArrayList<>();
 
     private static int usersCount = 3;
 
     static {
-        users.add(new User(1, "Kenneth", new Date(), "pass1", "701010-1111111"));
-        users.add(new User(2, "Alice", new Date(), "pass2", "701010-2222222"));
-        users.add(new User(3, "Elena", new Date(), "pass3", "701010-3333333"));
+        members.add(new Member(1, "Kenneth", new Date(), "pass1", "701010-1111111"));
+        members.add(new Member(2, "Alice", new Date(), "pass2", "701010-2222222"));
+        members.add(new Member(3, "Elena", new Date(), "pass3", "701010-3333333"));
     }
 
-    public List<User> findAll() {
-        return users;
+    public List<Member> findAll() {
+        return members;
     }
 
-    public User save(User user) {
-        if (user.getId() == null) {
-            user.setId(++usersCount);
+    public Member save(Member member) {
+        if (member.getId() == null) {
+            member.setId(++usersCount);
         }
-        users.add(user);
-        return user;
+        members.add(member);
+        return member;
     }
 
-    public User findOne(Integer id) {
-        for (User user : users) {
-            if (user.getId() == id) {
-                return user;
+    public Member findOne(Integer id) {
+        for (Member member : members) {
+            if (member.getId() == id) {
+                return member;
             }
         }
         return null;
     }
 
-    public User deleteById(int id) {
-        Iterator<User> iterator = users.iterator();
+    public Member deleteById(int id) {
+        Iterator<Member> iterator = members.iterator();
 
         while (iterator.hasNext()) {
-            User user = iterator.next();
+            Member member = iterator.next();
 
-            if (user.getId() == id) {
+            if (member.getId() == id) {
                 iterator.remove();
-                return user;
+                return member;
             }
         }
         return null;
