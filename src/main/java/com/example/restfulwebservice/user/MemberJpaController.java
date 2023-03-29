@@ -24,6 +24,9 @@ public class MemberJpaController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     @GetMapping("/users")
     public List<Member> retrieveAllUsers() {
         return userRepository.findAll();
@@ -64,6 +67,22 @@ public class MemberJpaController {
         }
 
         return member.get().getPosts();
+    }
+
+    @PostMapping("/users/{id}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable int id, @Valid @RequestBody Post post) {
+        Optional<Member> member = userRepository.findById(id);
+        if (!member.isPresent()) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        post.setMember(member.get());
+        Post savedPost = postRepository.save(post);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(savedPost.getId())
+            .toUri();
+        return ResponseEntity.created(uri).build();
     }
 
 
