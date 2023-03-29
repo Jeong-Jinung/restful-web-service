@@ -1,5 +1,6 @@
 package com.example.restfulwebservice.user;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -24,6 +25,7 @@ public class Post {
 
     //User : Post -> 1 : (0~N), Main : Sub -> Parent : Child
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     @JsonIgnore
     private Member member;
 
