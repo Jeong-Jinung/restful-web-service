@@ -3,9 +3,11 @@ package com.example.restfulwebservice.user;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -36,4 +38,15 @@ public class Member {
 
     @ApiModelProperty(notes = "사용자 주민번호를 입력해 주세요.")
     private String ssn;
+
+    @OneToMany(mappedBy = "member")
+    private List<Post> posts;
+
+    public Member(Integer id, String name, Date joinDate, String password, String ssn) {
+        this.id = id;
+        this.name = name;
+        this.joinDate = joinDate;
+        this.password = password;
+        this.ssn = ssn;
+    }
 }
